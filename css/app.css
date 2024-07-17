@@ -11,7 +11,7 @@ body {
 
 .font-esthetic {
   font-family: Sacramento, cursive !important;
-  color: #903739 !important; Warna text untuk font-esthetic
+  color: #903739 !important; /* Warna text untuk font-esthetic */
 }
 
 .font-arabic {
@@ -135,12 +135,8 @@ footer {
   background-color: var(--bs-gray-100);
 }
 
-.bg-theme-dark {
-  background-color: var(--bs-gray-800);
-}
-
 .color-theme-white {
-  color: white;
+  color: #fffefc;
 }
 
 .color-theme-black {
