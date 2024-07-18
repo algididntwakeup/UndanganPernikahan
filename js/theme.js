@@ -1,7 +1,7 @@
 import { storage } from './storage.js';
 
-export const THEME_DARK = 'dark';
 export const THEME_LIGHT = 'light';
+export const THEME_DARK = 'dark';
 export const THEME_BS_DATA = 'data-bs-theme';
 
 export const theme = (() => {
@@ -87,51 +87,51 @@ export const theme = (() => {
     });
   };
 
-  const isDarkMode = (onDark = null, onLight = null) => {
-    const status = theme.get('active') === THEME_DARK;
+  const isLightMode = (onLight = null, onDark = null) => {
+    const status = theme.get('active') === THEME_LIGHT;
 
-    if (onDark && onLight) {
-      return status ? onDark : onLight;
+    if (onLight && onDark) {
+      return status ? onLight : onDark;
     }
 
     return status;
   };
 
   const change = () => {
-    if (isDarkMode()) {
-      onLight();
-      document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
-      theme.set('active', THEME_LIGHT);
-    } else {
+    if (isLightMode()) {
       onDark();
       document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
       theme.set('active', THEME_DARK);
+    } else {
+      onLight();
+      document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
+      theme.set('active', THEME_LIGHT);
     }
   };
 
   const check = () => {
     if (!theme.has('active')) {
-      theme.set('active', THEME_LIGHT);
+      theme.set('active', THEME_DARK);
 
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        theme.set('active', THEME_DARK);
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        theme.set('active', THEME_LIGHT);
       }
     }
 
-    if (isDarkMode()) {
-      onDark();
-      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
-      const toggle = document.getElementById('darkMode');
-      if (toggle) {
-        toggle.checked = true;
-      }
-    } else {
+    if (isLightMode()) {
       onLight();
       document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
       theme.set('active', THEME_LIGHT);
       const toggle = document.getElementById('darkMode');
       if (toggle) {
         toggle.checked = false;
+      }
+    } else {
+      onDark();
+      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
+      const toggle = document.getElementById('darkMode');
+      if (toggle) {
+        toggle.checked = true;
       }
     }
   };
@@ -143,7 +143,7 @@ export const theme = (() => {
   return {
     change,
     check,
-    isDarkMode,
+    isLightMode,
     showButtonChangeTheme,
   };
 })();
