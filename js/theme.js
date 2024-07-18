@@ -87,51 +87,51 @@ export const theme = (() => {
     });
   };
 
-  const isLightMode = (onLight = null, onDark = null) => {
-    const status = theme.get('active') === THEME_LIGHT;
+  const isDarkMode = (onDark = null, onLight = null) => {
+    const status = theme.get('active') === THEME_DARK;
 
-    if (onLight && onDark) {
-      return status ? onLight : onDark;
+    if (onDark && onLight) {
+      return status ? onDark : onLight;
     }
 
     return status;
   };
 
   const change = () => {
-    if (isLightMode()) {
-      onDark();
-      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
-      theme.set('active', THEME_DARK);
-    } else {
+    if (isDarkMode()) {
       onLight();
       document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
       theme.set('active', THEME_LIGHT);
+    } else {
+      onDark();
+      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
+      theme.set('active', THEME_DARK);
     }
   };
 
   const check = () => {
     if (!theme.has('active')) {
-      theme.set('active', THEME_DARK);
+      theme.set('active', THEME_LIGHT);
 
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        theme.set('active', THEME_LIGHT);
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme.set('active', THEME_DARK);
       }
     }
 
-    if (isLightMode()) {
+    if (isDarkMode()) {
+      onDark();
+      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
+      const toggle = document.getElementById('darkMode');
+      if (toggle) {
+        toggle.checked = true;
+      }
+    } else {
       onLight();
       document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
       theme.set('active', THEME_LIGHT);
       const toggle = document.getElementById('darkMode');
       if (toggle) {
         toggle.checked = false;
-      }
-    } else {
-      onDark();
-      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
-      const toggle = document.getElementById('darkMode');
-      if (toggle) {
-        toggle.checked = true;
       }
     }
   };
@@ -143,7 +143,7 @@ export const theme = (() => {
   return {
     change,
     check,
-    isLightMode,
+    isDarkMode,
     showButtonChangeTheme,
   };
 })();
