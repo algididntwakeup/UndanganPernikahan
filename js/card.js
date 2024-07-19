@@ -15,12 +15,12 @@ export const card = (() => {
 
   const renderLoading = () => {
     document.getElementById('comments').innerHTML = `
-        <div class="card-body bg-theme-${theme.isDarkMode('dark', 'light')} shadow p-3 mx-0 mt-0 mb-3 rounded-4">
+        <div class="card-body bg-theme-${theme.isLightMode('light', 'dark')} shadow p-3 mx-0 mt-0 mb-3 rounded-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center placeholder-wave">
                 <span class="placeholder bg-secondary col-4 rounded-3"></span>
                 <span class="placeholder bg-secondary col-2 rounded-3"></span>
             </div>
-            <hr class="text-${theme.isDarkMode('light', 'dark')} my-1">
+            <hr class="text-${theme.isLightMode('dark', 'light')} my-1">
             <p class="card-text placeholder-wave">
                 <span class="placeholder bg-secondary col-6 rounded-3"></span>
                 <span class="placeholder bg-secondary col-5 rounded-3"></span>
@@ -31,7 +31,7 @@ export const card = (() => {
 
   const convertMarkdownToHTML = (input) => {
     if (lists.size === 0) {
-      const text = theme.isDarkMode('light', 'dark');
+      const text = theme.isLightMode('dark', 'light');
       const data = [
         ['*', `<strong class="text-${text}">$1</strong>`],
         ['_', `<em class="text-${text}">$1</em>`],
@@ -54,7 +54,7 @@ export const card = (() => {
 
   const renderLike = (comment) => {
     return `
-        <button style="font-size: 0.8rem;" onclick="like.like(this)" data-uuid="${comment.uuid}" class="btn btn-sm btn-outline-${theme.isDarkMode('light', 'dark')} rounded-2 p-0">
+        <button style="font-size: 0.8rem;" onclick="like.like(this)" data-uuid="${comment.uuid}" class="btn btn-sm btn-outline-${theme.isLightMode('dark', 'light')} rounded-2 p-0">
             <div class="d-flex justify-content-start align-items-center">
                 <p class="my-0 mx-1" data-count-like="${comment.like.love}">${comment.like.love} like</p>
                 <i class="me-1 ${likes.has(comment.uuid) ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart'}"></i>
@@ -63,7 +63,7 @@ export const card = (() => {
   };
 
   const renderAction = (comment) => {
-    const btn = theme.isDarkMode('light', 'dark');
+    const btn = theme.isLightMode('dark', 'light');
     let action = '';
 
     if (config.get('can_reply') == true || config.get('can_reply') === undefined) {
@@ -100,7 +100,7 @@ export const card = (() => {
       return '';
     }
 
-    const text = theme.isDarkMode('light', 'dark');
+    const text = theme.isLightMode('light', 'dark');
     return `
         <div class="p-2 my-2 rounded-3 border">
             <p class="text-${text} mb-1 mx-0 mt-0 p-0" style="font-size: 0.7rem;" id="ip-${comment.uuid}"><i class="fa-solid fa-location-dot me-1"></i>${util.escapeHtml(comment.ip)} ${
@@ -111,7 +111,7 @@ export const card = (() => {
   };
 
   const renderHeader = (is_parent) => {
-    const btn = theme.isDarkMode('dark', 'light');
+    const btn = theme.isLightMode('dark', 'light');
 
     if (is_parent) {
       return `class="card-body bg-theme-${btn} shadow p-3 mx-0 mt-0 mb-3 rounded-4" data-parent="true"`;
@@ -133,7 +133,7 @@ export const card = (() => {
   };
 
   const renderBody = (comment, is_parent) => {
-    const text = theme.isDarkMode('light', 'dark');
+    const text = theme.isLightMode('light', 'dark');
 
     return `
         <div class="d-flex flex-wrap justify-content-between align-items-center">
