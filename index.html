@@ -71,6 +71,11 @@
     <!-- App -->
     <link rel="stylesheet" href="./css/app.css" />
     <script src="./js/app.js" type="module" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        theme.check(); // Initialize theme check on DOMContentLoaded
+      });
+    </script>
   </head>
 
   <body data-key="7f25cec482e623be5e86a0ec70c9f0da04870794de63c7d977" data-url="https://undangan-backend-iota.vercel.app/" style="overflow-y: hidden">
@@ -589,8 +594,8 @@
     </div>
 
     <!-- Theme Button -->
-    <button type="button" id="button-theme" style="display: none" class="btn bg-light border border-2 btn-sm rounded-circle btn-theme" onclick="theme.change()">
-      <i class="fa-solid fa-circle-half-stroke"></i>
+    <button type="button" id="button-theme" style="display: none" onclick="theme.change()">
+      <!-- <i class="fa-solid fa-circle-half-stroke"></i> -->
     </button>
 
     <!-- Audio Button -->

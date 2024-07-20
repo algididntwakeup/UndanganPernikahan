@@ -87,22 +87,18 @@ export const theme = (() => {
     });
   };
 
-  const isLightMode = (onLight = null, onDark = null) => {
+  const isDarkMode = (onLight = null, onDark = null) => {
     const status = theme.get('active') === THEME_LIGHT;
 
-    if (onLight && onDark) {
-      return status ? onLight : onDark;
+    if (onDark && onLight) {
+      return status ? onDark : onLight;
     }
 
     return status;
   };
 
   const change = () => {
-    if (isLightMode()) {
-      onDark();
-      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
-      theme.set('active', THEME_DARK);
-    } else {
+    if (isDarkMode()) {
       onLight();
       document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
       theme.set('active', THEME_LIGHT);
@@ -110,15 +106,13 @@ export const theme = (() => {
   };
 
   const check = () => {
+    // Set default to light theme if no theme is stored
     if (!theme.has('active')) {
-      theme.set('active', THEME_DARK);
-
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        theme.set('active', THEME_LIGHT);
-      }
+      theme.set('active', THEME_LIGHT);
     }
 
-    if (isLightMode()) {
+    // Apply the correct theme based on stored value
+    if (isDarkMode()) {
       onLight();
       document.documentElement.setAttribute(THEME_BS_DATA, THEME_LIGHT);
       theme.set('active', THEME_LIGHT);
@@ -126,16 +120,8 @@ export const theme = (() => {
       if (toggle) {
         toggle.checked = false;
       }
-    } else {
-      onDark();
-      document.documentElement.setAttribute(THEME_BS_DATA, THEME_DARK);
-      const toggle = document.getElementById('darkMode');
-      if (toggle) {
-        toggle.checked = true;
-      }
     }
   };
-
   const showButtonChangeTheme = () => {
     document.getElementById('button-theme').style.display = 'block';
   };
@@ -143,7 +129,7 @@ export const theme = (() => {
   return {
     change,
     check,
-    isLightMode,
+    isDarkMode,
     showButtonChangeTheme,
   };
 })();
